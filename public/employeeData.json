@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "employeeName": "John Doe",
+    "duration": "4h",
+    "startTimeEndTime": "09:00 - 13:00",
+    "dueHours": "1h",
+    "department": "Development",
+    "project": "Inventory Management System",
+    "notes": "Worked on backend APIs"
+  },
+  {
+    "id": 2,
+    "employeeName": "Jane Smith",
+    "duration": "6h",
+    "startTimeEndTime": "10:00 - 16:00",
+    "dueHours": "0h",
+    "department": "Design",
+    "project": "Mobile App UI",
+    "notes": "Finalized UI components"
+  },
+  {
+    "id": 3,
+    "employeeName": "Alice Johnson",
+    "duration": "3.5h",
+    "startTimeEndTime": "08:30 - 12:00",
+    "dueHours": "0.5h",
+    "department": "QA",
+    "project": "E-commerce Website",
+    "notes": "Tested checkout flow"
+  },
+  {
+    "id": 4,
+    "employeeName": "Bob Brown",
+    "duration": "5h",
+    "startTimeEndTime": "11:00 - 16:00",
+    "dueHours": "1h",
+    "department": "Support",
+    "project": "Helpdesk Automation",
+    "notes": "Handled client tickets"
+  },
+  {
+    "id": 5,
+    "employeeName": "Charlie Davis",
+    "duration": "7h",
+    "startTimeEndTime": "09:00 - 17:00",
+    "dueHours": "0h",
+    "department": "HR",
+    "project": "Recruitment Portal",
+    "notes": "Conducted interviews"
+  }
+]
