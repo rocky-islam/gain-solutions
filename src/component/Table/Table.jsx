@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
 
 const Table = () => {
+  const [employee, setEmployee] = useState([]);
+  console.log(employee);
+  const [searchTerm, setSearchTerm] = useState("");
 
-    const [employee, setEmployee] = useState([])
-    console.log(employee)
 
-    useEffect(() =>{
-        fetch('employeeData.json')
-        .then(res => res.json())
-        .then(data => setEmployee(data))
-        .catch(e => console.log("error :", e ))
-    },[])
+  useEffect(() => {
+    fetch("employeeData.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setEmployee(data);
+        
+      })
+      .catch((e) => console.log("error :", e));
+  }, []);
+
+  // search
+  const filteredEmployees = employee.filter(
+    (emp) =>
+      emp.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="bg-white px-4">
@@ -34,9 +45,11 @@ const Table = () => {
                 />
               </svg>
               <input
+              value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
                 type="text"
                 className="grow"
-                placeholder="Search Anything...."
+                placeholder="Search by ID, Name"
               />
             </label>
           </div>
@@ -85,21 +98,22 @@ const Table = () => {
             </tr>
           </thead>
           <tbody>
-            {
-                employee.map((emp) => (
-                    <tr key={emp.id}>
-                        <td>{'#'}{emp.id}</td>
-                        <td>{emp.employeeName}</td>
-                        <td>{emp.duration}</td>
-                        <td>{emp.startTimeEndTime}</td>
-                        <td>{emp.dueHours}</td>
-                        <td>{emp.department}</td>
-                        <td>{emp.project}</td>
-                        <td>{emp.notes}</td>
-                        <td>Action Btn</td>
-                    </tr>
-                ))
-            }
+            {filteredEmployees.map((emp) => (
+              <tr key={emp.id}>
+                <td>
+                  {"#"}
+                  {emp.id}
+                </td>
+                <td>{emp.employeeName}</td>
+                <td>{emp.duration}</td>
+                <td>{emp.startTimeEndTime}</td>
+                <td>{emp.dueHours}</td>
+                <td>{emp.department}</td>
+                <td>{emp.project}</td>
+                <td>{emp.notes}</td>
+                <td>Action Btn</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
