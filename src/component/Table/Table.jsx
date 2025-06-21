@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 
-const Table = () => {
-  const [employee, setEmployee] = useState([]);
+const Table = ({employee}) => {
+  // const [employee, setEmployee] = useState([]);
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    fetch("employeeData.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setEmployee(data);
-      })
-      .catch((e) => console.log("error :", e));
-  }, []);
+  // useEffect(() => {
+  //   fetch("employeeData.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setEmployee(data);
+  //     })
+  //     .catch((e) => console.log("error :", e));
+  // }, []);
 
   // search
   const filteredEmployees = employee.filter(
@@ -23,8 +23,6 @@ const Table = () => {
   );
 
   // color class
-   
-
 
   return (
     <div className="bg-white px-4">
@@ -72,13 +70,9 @@ const Table = () => {
               </option>
               <option className="text-[#089624] flex">
                 {" "}
-                <span>
-                  <FaRegCircleCheck size={20} /> Approved
-                </span>
+                <span>Approved</span>
               </option>
-              <option className="text-red-500">
-                <FaRegCircleCheck /> Reject
-              </option>
+              <option className="text-red-500">Reject</option>
             </select>
           </div>
           <div>
@@ -117,15 +111,29 @@ const Table = () => {
                 </td>
                 <td className="text-base font-medium">{emp.employeeName}</td>
                 <td className="text-base font-medium">{emp.duration}</td>
-                <td className="text-base font-medium">{emp.startTimeEndTime}</td>
+                <td className="text-base font-medium">
+                  {emp.startTimeEndTime}
+                </td>
                 <td className="text-base font-medium">{emp.dueHours}</td>
-                <td className={`rounded-full ${emp.department == 'Development' ? "text-[#16A34A] bg-[#a8fec7]" : emp.department == "HR" ? " text-purple-300" : 'text-slate-800'}`} >{emp.department}</td>
+                <td
+                  className={`rounded-full ${
+                    emp.department == "Development"
+                      ? "text-[#16A34A] bg-[#a8fec7]"
+                      : emp.department == "HR"
+                      ? " text-purple-300"
+                      : "text-slate-800"
+                  }`}
+                >
+                  {emp.department}
+                </td>
                 <td className="text-base font-medium">{emp.project}</td>
                 <td className="text-base font-medium">{emp.notes}</td>
                 <td className="text-base font-medium">
                   <div className="flex gap-2">
                     <button className="text-red-400 ">Reject</button>
-                    <button className="btn text-white bg-[#16A34A]">approve</button>
+                    <button className="btn text-white bg-[#16A34A]">
+                      approve
+                    </button>
                   </div>
                 </td>
                 <td>
