@@ -1,10 +1,13 @@
 import { useState } from "react";
+import DatePicker from "react-datepicker";
 // import { FaRegCircleCheck } from "react-icons/fa6";
+import "react-datepicker/dist/react-datepicker.css";
+import { GoDotFill } from "react-icons/go";
 
 const Table = ({ employee }) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
-
 
   // search
   const filteredEmployees = employee.filter(
@@ -46,30 +49,28 @@ const Table = ({ employee }) => {
             </label>
           </div>
           <div>
-            <select className="select select-bordered w-full max-w-xs">
-              <option disabled >
-                Who shot first?
-              </option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
-            </select>
+            <label className="form-control">
+              <div className="label">
+              </div>
+              <input
+                type="date"
+                value={'select time'}
+                name="name"
+                placeholder="Type Name"
+                className="input input-bordered w-full max-w-xs"
+              />
+            </label>
           </div>
           <div>
             <select className="select w-52">
-              <option disabled>
-                Status
-              </option>
-              <option className="text-[#089624] flex">
-                Approved
-              </option>
+              <option disabled>Status</option>
+              <option className="text-[#089624] flex">Approved</option>
               <option className="text-red-500">Reject</option>
             </select>
           </div>
           <div>
             <select className="select select-bordered ">
-              <option disabled>
-                Who shot first?
-              </option>
+              <option disabled>Who shot first?</option>
               <option>Han Solo</option>
               <option>Greedo</option>
             </select>
@@ -93,8 +94,7 @@ const Table = ({ employee }) => {
             </tr>
           </thead>
           <tbody>
-            
-            {filteredEmployees.map((emp,i) => (
+            {filteredEmployees.map((emp, i) => (
               <tr key={i}>
                 <td>
                   {"#"}
@@ -106,8 +106,8 @@ const Table = ({ employee }) => {
                   {emp.startTimeEndTime}
                 </td>
                 <td className="text-base font-medium">{emp.dueHours}</td>
-                <td
-                  className={`rounded-full ${
+                <span
+                  className={`rounded-full px-2 py-1 mt-4 flex items-center justify-center${
                     emp.department == "Development"
                       ? "text-[#16A34A] bg-[#a8fec7]"
                       : emp.department == "HR"
@@ -115,8 +115,8 @@ const Table = ({ employee }) => {
                       : "text-slate-800"
                   }`}
                 >
-                  {emp.department}
-                </td>
+                  <span className="flex items-center justify-center"><GoDotFill /> {emp.department}</span>
+                </span>
                 <td className="text-base font-medium">{emp.project}</td>
                 <td className="text-base font-medium">{emp.notes}</td>
                 <td className="text-base font-medium">
@@ -132,7 +132,6 @@ const Table = ({ employee }) => {
                 </td>
               </tr>
             ))}
-            
           </tbody>
         </table>
       </div>
