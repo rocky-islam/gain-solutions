@@ -2,18 +2,9 @@ import { useState } from "react";
 // import { FaRegCircleCheck } from "react-icons/fa6";
 
 const Table = ({ employee }) => {
-  // const [employee, setEmployee] = useState([]);
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // useEffect(() => {
-  //   fetch("employeeData.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setEmployee(data);
-  //     })
-  //     .catch((e) => console.log("error :", e));
-  // }, []);
 
   // search
   const filteredEmployees = employee.filter(
