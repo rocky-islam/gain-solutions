@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { FaRegCircleCheck } from "react-icons/fa6";
+import { useState } from "react";
+// import { FaRegCircleCheck } from "react-icons/fa6";
 
-const Table = ({employee}) => {
+const Table = ({ employee }) => {
   // const [employee, setEmployee] = useState([]);
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,7 +56,7 @@ const Table = ({employee}) => {
           </div>
           <div>
             <select className="select select-bordered w-full max-w-xs">
-              <option disabled selected>
+              <option disabled >
                 Who shot first?
               </option>
               <option>Han Solo</option>
@@ -65,19 +65,18 @@ const Table = ({employee}) => {
           </div>
           <div>
             <select className="select w-52">
-              <option disabled selected>
+              <option disabled>
                 Status
               </option>
               <option className="text-[#089624] flex">
-                {" "}
-                <span>Approved</span>
+                Approved
               </option>
               <option className="text-red-500">Reject</option>
             </select>
           </div>
           <div>
             <select className="select select-bordered ">
-              <option disabled selected>
+              <option disabled>
                 Who shot first?
               </option>
               <option>Han Solo</option>
@@ -103,8 +102,9 @@ const Table = ({employee}) => {
             </tr>
           </thead>
           <tbody>
-            {filteredEmployees.map((emp) => (
-              <tr key={emp.id}>
+            
+            {filteredEmployees.map((emp,i) => (
+              <tr key={i}>
                 <td>
                   {"#"}
                   {emp.id}
@@ -141,6 +141,7 @@ const Table = ({employee}) => {
                 </td>
               </tr>
             ))}
+            
           </tbody>
         </table>
       </div>

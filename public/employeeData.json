@@ -48,5 +48,45 @@
     "department": "HR",
     "project": "Recruitment Portal",
     "notes": "Conducted interviews"
+  },
+  {
+    "id": "4",
+    "employeeName": "Bob Brown",
+    "duration": "5h",
+    "startTimeEndTime": "11:00 - 16:00",
+    "dueHours": "1h",
+    "department": "Support",
+    "project": "Helpdesk Automation",
+    "notes": "Handled client tickets"
+  },
+  {
+    "id": "5",
+    "employeeName": "Charlie Davis",
+    "duration": "7h",
+    "startTimeEndTime": "09:00 - 17:00",
+    "dueHours": "0h",
+    "department": "HR",
+    "project": "Recruitment Portal",
+    "notes": "Conducted interviews"
+  },
+  {
+    "id": "4",
+    "employeeName": "Bob Brown",
+    "duration": "5h",
+    "startTimeEndTime": "11:00 - 16:00",
+    "dueHours": "1h",
+    "department": "Support",
+    "project": "Helpdesk Automation",
+    "notes": "Handled client tickets"
+  },
+  {
+    "id": "5",
+    "employeeName": "Charlie Davis",
+    "duration": "7h",
+    "startTimeEndTime": "09:00 - 17:00",
+    "dueHours": "0h",
+    "department": "HR",
+    "project": "Recruitment Portal",
+    "notes": "Conducted interviews"
   }
 ]
