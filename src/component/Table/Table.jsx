@@ -10,7 +10,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 // import { CiCircleCheck } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 
-const Table = ({ employee }) => {
+const Table = ({ employee, handleDelete }) => {
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
   const [statuses, setStatuses] = useState({});
@@ -284,8 +284,8 @@ const Table = ({ employee }) => {
                             <RxDownload size={20} /> Export Excel
                           </span>
                         </li>
-                        <li>
-                          <span className="text-base font-medium p-4 text-[#E02600]">
+                        <li >
+                          <span className="text-base font-medium p-4 text-[#E02600]" onClick={() => handleDelete(emp.id)}>
                             {" "}
                             <RiDeleteBin6Line size={20} color="#E02600" />
                             Delete Info

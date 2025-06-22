@@ -73,6 +73,13 @@ const EmployeeLog = () => {
     console.log(newEmployee);
     setEmployee([...employee, newEmployee]);
   };
+
+  // Delete
+  const handleDelete = (id) => {
+    setEmployee((prev) => prev.filter((emp) => emp.id != id));
+  };
+
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -271,7 +278,7 @@ const EmployeeLog = () => {
         </div>
       </div>
       <div className="mt-6">
-        <Table employee={employee} setEmployee={setEmployee}></Table>
+        <Table employee={employee} setEmployee={setEmployee} handleDelete={handleDelete}></Table>
       </div>
     </div>
   );
