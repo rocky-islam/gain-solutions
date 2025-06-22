@@ -9,11 +9,13 @@ import { TbCalendarMonth } from "react-icons/tb";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 // import { CiCircleCheck } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
+import { CiSquarePlus } from "react-icons/ci";
 
-const Table = ({ employee, handleDelete }) => {
+const Table = ({ employee, handleDelete, handleUpdate }) => {
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
   const [statuses, setStatuses] = useState({});
+  const [editingEmployee, setEditingEmployee] = useState(null);
 
   // search
   const filteredEmployees = employee.filter(
@@ -37,6 +39,30 @@ const Table = ({ employee, handleDelete }) => {
       delete updated[id];
       return updated;
     });
+  };
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const updatedEmployee = {
+      ...editingEmployee,
+      id: form.id.value,
+      employeeName: form.name.value,
+      department: form.department.value,
+      project: form.project.value,
+      notes: form.notes.value,
+    };
+
+    const updatedList = employee.map((emp) =>
+      emp.id === editingEmployee.id ? updatedEmployee : emp
+    );
+
+    if (typeof handleUpdate === "function") {
+      handleUpdate(updatedList);
+    }
+
+    document.getElementById("edit_modal").close();
+    setEditingEmployee(null);
   };
   return (
     <div className="bg-white px-4">
@@ -82,76 +108,81 @@ const Table = ({ employee, handleDelete }) => {
             <div>
               <dialog id="my_modal_3" className="modal">
                 <div className="modal-box max-w-3xl p-5">
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() =>
-                      document.getElementById("my_modal_3").close()
-                    }>
-                      ✕
-                    </button>
-                  
-                  <div className="flex gap-8 py-8">
-                    <div>
-                      <label className="form-control flex flex-col w-52">
-                              <div className="label">
-                                <span className="label-text text-sm font-medium">
-                                  Date Range
-                                </span>
-                              </div>
-                              <select
-                                className="select select-bordered"
-                                name="project"
-                                defaultValue=""
-                              >
-                                <option value="">
-                                 Last 7 Days
-                                </option>
-                                <option value="Last 15 days">Last 15 days</option>
-                                <option value="Last 30 days">Last 30 days</option>
-                              </select>
-                            </label>
-                    </div>
-                    <div>
-                      <label className="form-control flex flex-col w-44">
-                          <div className="label">
-                            <span className="label-text font-medium text-sm">
-                              Start date
-                            </span>
-                          </div>
-                          <input
-                            type="date"
-                            name="start-date"
-                            placeholder="Type End Time"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                        </label>
-                    </div>
-                    <div>
-                      <label className="form-control flex flex-col w-44">
-                          <div className="label">
-                            <span className="label-text font-medium text-sm">
-                              End Date
-                            </span>
-                          </div>
-                          <input
-                            type="date"
-                            name="end_date"
-                            placeholder="Type End Time"
-                            className="input input-bordered w-full max-w-xs"
-                          />
-                        </label>
-                    </div>
-                  </div>
-                  <div className="modal-action mt-10">
                   <button
-                    type="button"
-                    className="btn"
+                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     onClick={() =>
                       document.getElementById("my_modal_3").close()
                     }
                   >
-                    Close
+                    ✕
                   </button>
-                  <input type="submit" value="Apply" className="btn bg-[#3E50F7] text-white px-12" />
-                </div>
+
+                  <div className="flex gap-8 py-8">
+                    <div>
+                      <label className="form-control flex flex-col w-52">
+                        <div className="label">
+                          <span className="label-text text-sm font-medium">
+                            Date Range
+                          </span>
+                        </div>
+                        <select
+                          className="select select-bordered"
+                          name="project"
+                          defaultValue=""
+                        >
+                          <option value="">Last 7 Days</option>
+                          <option value="Last 15 days">Last 15 days</option>
+                          <option value="Last 30 days">Last 30 days</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div>
+                      <label className="form-control flex flex-col w-44">
+                        <div className="label">
+                          <span className="label-text font-medium text-sm">
+                            Start date
+                          </span>
+                        </div>
+                        <input
+                          type="date"
+                          name="start-date"
+                          placeholder="Type End Time"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                      </label>
+                    </div>
+                    <div>
+                      <label className="form-control flex flex-col w-44">
+                        <div className="label">
+                          <span className="label-text font-medium text-sm">
+                            End Date
+                          </span>
+                        </div>
+                        <input
+                          type="date"
+                          name="end_date"
+                          placeholder="Type End Time"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="modal-action mt-10">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() =>
+                        document.getElementById("my_modal_3").close()
+                      }
+                    >
+                      Close
+                    </button>
+                    <input
+                      type="submit"
+                      value="Apply"
+                      className="btn bg-[#3E50F7] text-white px-12"
+                    />
+                  </div>
                 </div>
               </dialog>
             </div>
@@ -207,7 +238,7 @@ const Table = ({ employee, handleDelete }) => {
                   {emp.startTimeEndTime}
                 </td>
                 <td className="text-base font-medium">{emp.dueHours}</td>
-                <span
+                <td
                   className={`rounded-full px-2 py-1 mt-4 flex items-center justify-center${
                     emp.department == "Development"
                       ? "text-[#16A34A] bg-[#a8fec7]"
@@ -219,7 +250,7 @@ const Table = ({ employee, handleDelete }) => {
                   <span className="flex items-center justify-center">
                     <GoDotFill /> {emp.department}
                   </span>
-                </span>
+                </td>
                 <td className="text-base font-medium">{emp.project}</td>
                 <td className="text-base font-medium">{emp.notes}</td>
                 <td className="text-base font-medium">
@@ -275,17 +306,30 @@ const Table = ({ employee, handleDelete }) => {
                         className="dropdown-content menu bg-base-100 rounded-xl z-1 w-52 p-2 shadow-xl shadow-black"
                       >
                         <li>
-                          <span className="text-base font-medium p-4">
-                            <BiEditAlt size={20} /> Edit Info
-                          </span>
+                          <div>
+                            <span
+                              className="text-base font-medium p-4 flex gap-2"
+                              onClick={() => {
+                                setEditingEmployee(emp);
+                                document
+                                  .getElementById("edit_modal")
+                                  .showModal();
+                              }}
+                            >
+                              <BiEditAlt size={20} /> Edit Info
+                            </span>
+                          </div>
                         </li>
                         <li>
                           <span className="text-base font-medium p-4 border-y-2">
                             <RxDownload size={20} /> Export Excel
                           </span>
                         </li>
-                        <li >
-                          <span className="text-base font-medium p-4 text-[#E02600]" onClick={() => handleDelete(emp.id)}>
+                        <li>
+                          <span
+                            className="text-base font-medium p-4 text-[#E02600]"
+                            onClick={() => handleDelete(emp.id)}
+                          >
                             {" "}
                             <RiDeleteBin6Line size={20} color="#E02600" />
                             Delete Info
@@ -300,6 +344,59 @@ const Table = ({ employee, handleDelete }) => {
           </tbody>
         </table>
       </div>
+      {/* Modal update */}
+      {editingEmployee && (
+        <dialog id="edit_modal" className="modal">
+          <div className="modal-box">
+            <form onSubmit={handleUpdateSubmit}>
+              <button
+                type="button"
+                onClick={() => {
+                  document.getElementById("edit_modal").close();
+                  setEditingEmployee(null);
+                }}
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
+                ✕
+              </button>
+
+              <h3 className="text-lg font-bold mb-4">Edit Employee</h3>
+
+              <input
+                name="id"
+                defaultValue={editingEmployee.id}
+                className="input input-bordered w-full mb-3"
+              />
+              <input
+                name="name"
+                defaultValue={editingEmployee.employeeName}
+                className="input input-bordered w-full mb-3"
+              />
+              <input
+                name="department"
+                defaultValue={editingEmployee.department}
+                className="input input-bordered w-full mb-3"
+              />
+              <input
+                name="project"
+                defaultValue={editingEmployee.project}
+                className="input input-bordered w-full mb-3"
+              />
+              <input
+                name="notes"
+                defaultValue={editingEmployee.notes}
+                className="input input-bordered w-full mb-3"
+              />
+
+              <div className="modal-action">
+                <button type="submit" className="btn bg-blue-600 text-white">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 };

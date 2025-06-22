@@ -9,6 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const EmployeeLog = () => {
   const [employee, setEmployee] = useState([]);
+  //update
+  const handleUpdate = (updatedList) => {
+  setEmployee(updatedList);
+};
 
   // const [closeModal, setCloseModal] = useState(true)
 
@@ -278,7 +282,11 @@ const EmployeeLog = () => {
         </div>
       </div>
       <div className="mt-6">
-        <Table employee={employee} setEmployee={setEmployee} handleDelete={handleDelete}></Table>
+        <Table employee={employee}
+              setEmployee={setEmployee}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
+          ></Table>
       </div>
     </div>
   );
