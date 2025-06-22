@@ -1,13 +1,21 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
-// import { FaRegCircleCheck } from "react-icons/fa6";
+import { FaAngleDown, FaRegCircleCheck } from "react-icons/fa6";
 import "react-datepicker/dist/react-datepicker.css";
-import { GoDotFill } from "react-icons/go";
+import { GoDotFill, GoXCircleFill } from "react-icons/go";
+import { BiEditAlt } from "react-icons/bi";
+import { RxDownload } from "react-icons/rx";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { TbCalendarMonth } from "react-icons/tb";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { CiCircleCheck } from "react-icons/ci";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Table = ({ employee }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statuses, setStatuses] = useState({});
 
   // search
   const filteredEmployees = employee.filter(
@@ -17,7 +25,21 @@ const Table = ({ employee }) => {
   );
 
   // color class
+  const handleApprove = (id) => {
+    setStatuses((prev) => ({ ...prev, [id]: "approved" }));
+  };
 
+  const handleReject = (id) => {
+    setStatuses((prev) => ({ ...prev, [id]: "rejected" }));
+  };
+
+  const handleUndo = (id) => {
+    setStatuses((prev) => {
+      const updated = { ...prev };
+      delete updated[id];
+      return updated;
+    });
+  };
   return (
     <div className="bg-white px-4">
       <div className="py-10 flex justify-between">
@@ -49,30 +71,32 @@ const Table = ({ employee }) => {
             </label>
           </div>
           <div>
-            <label className="form-control">
-              <div className="label">
+            <label className=" w-44">
+              <div className="flex gap-2 items-center justify-center border border-gray-300 px-5 py-2 rounded">
+                <TbCalendarMonth size={20} />
+                <p className="font-medium">Date Range</p>
+                <FaAngleDown size={18} />
               </div>
-              <input
-                type="date"
-                value={'select time'}
-                name="name"
-                placeholder="Type Name"
-                className="input input-bordered w-full max-w-xs"
-              />
             </label>
           </div>
           <div>
-            <select className="select w-52">
-              <option disabled>Status</option>
-              <option className="text-[#089624] flex">Approved</option>
-              <option className="text-red-500">Reject</option>
+            <select className="font-medium select w-44">
+              <option disabled className="font-medium">
+                Status
+              </option>
+              <option className="text-[#089624] flex font-medium">
+                {" "}
+                &#x2705; Approved
+              </option>
+              <option className="text-red-500 font-medium"> ❌ Reject</option>
             </select>
           </div>
           <div>
-            <select className="select select-bordered ">
-              <option disabled>Who shot first?</option>
-              <option>Han Solo</option>
-              <option>Greedo</option>
+            <select className="select font-medium w-44">
+              <option className="font-medium">Design</option>
+              <option className="font-medium">Development</option>
+              <option className="font-medium">Project</option>
+              <option className="font-medium">sales</option>
             </select>
           </div>
         </div>
@@ -115,20 +139,84 @@ const Table = ({ employee }) => {
                       : "text-slate-800"
                   }`}
                 >
-                  <span className="flex items-center justify-center"><GoDotFill /> {emp.department}</span>
+                  <span className="flex items-center justify-center">
+                    <GoDotFill /> {emp.department}
+                  </span>
                 </span>
                 <td className="text-base font-medium">{emp.project}</td>
                 <td className="text-base font-medium">{emp.notes}</td>
                 <td className="text-base font-medium">
-                  <div className="flex gap-2">
-                    <button className="text-red-400 ">Reject</button>
-                    <button className="btn text-white bg-[#16A34A]">
-                      approve
-                    </button>
-                  </div>
+                  {statuses[emp.id] === "approved" ? (
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center gap-2 text-xs px-3 py-1 text-green-700 bg-green-100 border border-green-300 rounded">
+                        <FaCheckCircle size={16}/> Approved
+                      </span>
+                      <button
+                        onClick={() => handleUndo(emp.id)}
+                        className="text-xs px-3 py-1 bg-white rounded border"
+                      >
+                        Undo
+                      </button>
+                    </div>
+                  ) : statuses[emp.id] === "rejected" ? (
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center gap-2 text-xs px-3 py-1 text-red-600 bg-red-100 border border-red-300 rounded">
+                        <GoXCircleFill size={16}/> Rejected
+                      </span>
+                      <button
+                        onClick={() => handleUndo(emp.id)}
+                        className="px-3 py-1 text-xs bg-white rounded border"
+                      >
+                        Undo
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleReject(emp.id)}
+                        className="px-3 py-1 text-xs  text-red-600"
+                      >
+                        Reject
+                      </button>
+                      <button
+                        onClick={() => handleApprove(emp.id)}
+                        className="px-3 py-1 text-xs bg-[#089624] text-white rounded"
+                      >
+                        Approve
+                      </button>
+                    </div>
+                  )}
                 </td>
                 <td>
-                  <button>...</button>
+                  <div>
+                    <div className="dropdown dropdown-end">
+                      <div tabIndex={0} role="button" className="btn m-1 ">
+                        <HiOutlineDotsVertical />
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-base-100 rounded-xl z-1 w-52 p-2 shadow-xl shadow-black"
+                      >
+                        <li>
+                          <span className="text-base font-medium p-4">
+                            <BiEditAlt size={20} /> Edit Info
+                          </span>
+                        </li>
+                        <li>
+                          <span className="text-base font-medium p-4 border-y-2">
+                            <RxDownload size={20} /> Export Excel
+                          </span>
+                        </li>
+                        <li>
+                          <span className="text-base font-medium p-4 text-[#E02600]">
+                            {" "}
+                            <RiDeleteBin6Line size={20} color="#E02600" />
+                            Delete Info
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}

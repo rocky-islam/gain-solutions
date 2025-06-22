@@ -44,15 +44,27 @@ const EmployeeLog = () => {
   const hours = Math.floor(diff / 60);
   const minutes = diff % 60;
   console.log(hours, minutes)
-  // return `${hours}h ${minutes}m`;
+  
+  // dueHrs
+  const TOTAL_MINUTES = 8 * 60; // 8 hours = 480 minutes
+
+  // Convert spent time to minutes
+  const spentMinutes = hours * 60 + minutes;
+
+  // Calculate remaining minutes
+  const remainingMinutes = TOTAL_MINUTES - spentMinutes;
+
+  // Convert back to HH:MM
+  const remainingHours = Math.floor(remainingMinutes / 60);
+  const remainingMins = remainingMinutes % 60;
 
     
     const newEmployee = {
       id: id,
       employeeName: name,
-      duration: hours+":"+minutes+"h",
+      duration: hours+"hr "+minutes+"min",
       startTimeEndTime: startTime + " - " + endTime,
-      dueHours: "",
+      dueHours: remainingHours+"hr "+remainingMins+"min",
       department: department,
       project: project,
       notes: "",
