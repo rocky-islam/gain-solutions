@@ -254,7 +254,6 @@ const EmployeeLog = () => {
                 </div>
 
                 <div className="modal-action">
-                  <input type="submit" value="Add User" className="btn" />
                   <button
                     type="button"
                     className="btn"
@@ -264,6 +263,7 @@ const EmployeeLog = () => {
                   >
                     Close
                   </button>
+                  <input type="submit" value="Add Employee" className="btn bg-[#3E50F7] text-white" />
                 </div>
               </form>
             </div>

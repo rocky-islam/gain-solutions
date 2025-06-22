@@ -1,6 +1,5 @@
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import { FaAngleDown, FaRegCircleCheck } from "react-icons/fa6";
+import { FaAngleDown } from "react-icons/fa6";
 import "react-datepicker/dist/react-datepicker.css";
 import { GoDotFill, GoXCircleFill } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
@@ -8,11 +7,10 @@ import { RxDownload } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TbCalendarMonth } from "react-icons/tb";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { CiCircleCheck } from "react-icons/ci";
+// import { CiCircleCheck } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Table = ({ employee }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
   console.log(employee);
   const [searchTerm, setSearchTerm] = useState("");
   const [statuses, setStatuses] = useState({});
@@ -71,16 +69,95 @@ const Table = ({ employee }) => {
             </label>
           </div>
           <div>
-            <label className=" w-44">
+            <label
+              className=" w-44 cursor-pointer"
+              onClick={() => document.getElementById("my_modal_3").showModal()}
+            >
               <div className="flex gap-2 items-center justify-center border border-gray-300 px-5 py-2 rounded">
                 <TbCalendarMonth size={20} />
                 <p className="font-medium">Date Range</p>
                 <FaAngleDown size={18} />
               </div>
             </label>
+            <div>
+              <dialog id="my_modal_3" className="modal">
+                <div className="modal-box max-w-3xl p-5">
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() =>
+                      document.getElementById("my_modal_3").close()
+                    }>
+                      ✕
+                    </button>
+                  
+                  <div className="flex gap-8 py-8">
+                    <div>
+                      <label className="form-control flex flex-col w-52">
+                              <div className="label">
+                                <span className="label-text text-sm font-medium">
+                                  Date Range
+                                </span>
+                              </div>
+                              <select
+                                className="select select-bordered"
+                                name="project"
+                                defaultValue=""
+                              >
+                                <option value="">
+                                 Last 7 Days
+                                </option>
+                                <option value="Last 15 days">Last 15 days</option>
+                                <option value="Last 30 days">Last 30 days</option>
+                              </select>
+                            </label>
+                    </div>
+                    <div>
+                      <label className="form-control flex flex-col w-44">
+                          <div className="label">
+                            <span className="label-text font-medium text-sm">
+                              Start date
+                            </span>
+                          </div>
+                          <input
+                            type="date"
+                            name="start-date"
+                            placeholder="Type End Time"
+                            className="input input-bordered w-full max-w-xs"
+                          />
+                        </label>
+                    </div>
+                    <div>
+                      <label className="form-control flex flex-col w-44">
+                          <div className="label">
+                            <span className="label-text font-medium text-sm">
+                              End Date
+                            </span>
+                          </div>
+                          <input
+                            type="date"
+                            name="end_date"
+                            placeholder="Type End Time"
+                            className="input input-bordered w-full max-w-xs"
+                          />
+                        </label>
+                    </div>
+                  </div>
+                  <div className="modal-action mt-10">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() =>
+                      document.getElementById("my_modal_3").close()
+                    }
+                  >
+                    Close
+                  </button>
+                  <input type="submit" value="Apply" className="btn bg-[#3E50F7] text-white px-12" />
+                </div>
+                </div>
+              </dialog>
+            </div>
           </div>
           <div>
-            <select className="font-medium select w-44">
+            <select className="font-medium select w-44 cursor-pointer">
               <option disabled className="font-medium">
                 Status
               </option>
@@ -92,7 +169,7 @@ const Table = ({ employee }) => {
             </select>
           </div>
           <div>
-            <select className="select font-medium w-44">
+            <select className="select font-medium w-44 cursor-pointer">
               <option className="font-medium">Design</option>
               <option className="font-medium">Development</option>
               <option className="font-medium">Project</option>
@@ -149,7 +226,7 @@ const Table = ({ employee }) => {
                   {statuses[emp.id] === "approved" ? (
                     <div className="flex items-center gap-2">
                       <span className="flex items-center gap-2 text-xs px-3 py-1 text-green-700 bg-green-100 border border-green-300 rounded">
-                        <FaCheckCircle size={16}/> Approved
+                        <FaCheckCircle size={16} /> Approved
                       </span>
                       <button
                         onClick={() => handleUndo(emp.id)}
@@ -161,7 +238,7 @@ const Table = ({ employee }) => {
                   ) : statuses[emp.id] === "rejected" ? (
                     <div className="flex items-center gap-2">
                       <span className="flex items-center gap-2 text-xs px-3 py-1 text-red-600 bg-red-100 border border-red-300 rounded">
-                        <GoXCircleFill size={16}/> Rejected
+                        <GoXCircleFill size={16} /> Rejected
                       </span>
                       <button
                         onClick={() => handleUndo(emp.id)}
