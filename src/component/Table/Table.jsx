@@ -240,7 +240,7 @@ const Table = ({ employee, handleDelete, handleUpdate }) => {
                 <td className="text-base font-medium">{emp.dueHours}</td>
                 <td
                   className={`rounded-full px-2 py-1 mt-4 flex items-center justify-center${
-                    emp.department == "Development"
+                    emp.department == "development"
                       ? "text-[#16A34A] bg-[#a8fec7]"
                       : emp.department == "HR"
                       ? " text-purple-300"
@@ -306,15 +306,15 @@ const Table = ({ employee, handleDelete, handleUpdate }) => {
                         className="dropdown-content menu bg-base-100 rounded-xl z-1 w-52 p-2 shadow-xl shadow-black"
                       >
                         <li>
-                          <div>
-                            <span
-                              className="text-base font-medium p-4 flex gap-2"
-                              onClick={() => {
+                          <div onClick={() => {
                                 setEditingEmployee(emp);
                                 document
                                   .getElementById("edit_modal")
                                   .showModal();
-                              }}
+                              }}>
+                            <span
+                              className="text-base font-medium p-4 flex gap-2"
+                              
                             >
                               <BiEditAlt size={20} /> Edit Info
                             </span>
@@ -347,55 +347,180 @@ const Table = ({ employee, handleDelete, handleUpdate }) => {
       {/* Modal update */}
       {editingEmployee && (
         <dialog id="edit_modal" className="modal">
-          <div className="modal-box">
-            <form onSubmit={handleUpdateSubmit}>
-              <button
-                type="button"
-                onClick={() => {
+            <div className="modal-box max-w-3xl">
+              <form onSubmit={handleUpdateSubmit}>
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={() => {
                   document.getElementById("edit_modal").close();
                   setEditingEmployee(null);
                 }}
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              >
-                ✕
-              </button>
+                  className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >
+                  ✕
+                </button>
 
-              <h3 className="text-lg font-bold mb-4">Edit Employee</h3>
+                <div>
+                  <h1 className="text-2xl font-semibold">
+                   Edit Employee Information
+                  </h1>
+                  <div>
+                    <div>
+                      <label className="form-control flex flex-col w-40 mt-7">
+                        <div className="label">
+                          <span className="label-text font-medium text-sm">
+                            Employee ID
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          name="id"
+                          defaultValue={editingEmployee.id}
+                          placeholder="Type ID"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                      </label>
+                    </div>
 
-              <input
-                name="id"
-                defaultValue={editingEmployee.id}
-                className="input input-bordered w-full mb-3"
-              />
-              <input
-                name="name"
-                defaultValue={editingEmployee.employeeName}
-                className="input input-bordered w-full mb-3"
-              />
-              <input
-                name="department"
-                defaultValue={editingEmployee.department}
-                className="input input-bordered w-full mb-3"
-              />
-              <input
-                name="project"
-                defaultValue={editingEmployee.project}
-                className="input input-bordered w-full mb-3"
-              />
-              <input
+                    <div>
+                      <label className="form-control flex flex-col w-1/2 mt-7">
+                        <div className="label">
+                          <span className="label-text font-medium text-sm">
+                            Type Employee Name
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          defaultValue={editingEmployee.employeeName}
+                          name="name"
+                          placeholder="Type Name"
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                      </label>
+                    </div>
+
+                    <div>
+                      <div className="flex gap-4 mt-7">
+                        <div className="w-2/4">
+                          <div className="flex gap-4 items-center">
+                            <label className="form-control flex flex-col w-52">
+                              <div className="label">
+                                <span className="label-text text-sm font-medium">
+                                  Select Department
+                                </span>
+                              </div>
+                              <select
+                                className="select select-bordered"
+                                name="department"
+                                defaultValue={editingEmployee.department}
+                              >
+                                <option value="" disabled>
+                                  Select one
+                                </option>
+                                <option value="design">Design</option>
+                                <option value="development">Development</option>
+                                <option value="Product">Product</option>
+                                <option value="sales">Sales</option>
+                              </select>
+                            </label>
+                            <div>
+                              <CiSquarePlus size={35} color="#3E50F7" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="w-2/4">
+                          <div className="flex gap-4 items-center">
+                            <label className="form-control flex flex-col w-52">
+                              <div className="label">
+                                <span className="label-text text-sm font-medium">
+                                  Select Project
+                                </span>
+                              </div>
+                              <select
+                                className="select select-bordered"
+                                name="project"
+                                defaultValue={editingEmployee.project}
+                              >
+                                <option value="" disabled>
+                                  Select one
+                                </option>
+                                <option value="CRM Project">CRM Project</option>
+                                <option value="HRM Project">HRM Project</option>
+                              </select>
+                            </label>
+                            <div>
+                              <CiSquarePlus size={35} color="#3E50F7" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-20 mt-7">
+                      <div className="flex gap-4 items-center">
+                        <label className="form-control flex flex-col w-44">
+                          <div className="label">
+                            <span className="label-text font-medium text-sm">
+                              Start Time
+                            </span>
+                          </div>
+                          <input
+                            type="time"
+                            name="start_time"
+                            placeholder="Type Start Time"
+                            className="input input-bordered w-full max-w-xs"
+                          />
+                        </label>
+                        <div>
+                          <CiSquarePlus size={35} color="#3E50F7" />
+                        </div>
+                      </div>
+
+                      <div className="flex gap-4 items-center">
+                        <label className="form-control flex flex-col w-44">
+                          <div className="label">
+                            <span className="label-text font-medium text-sm">
+                              End Time
+                            </span>
+                          </div>
+                          <input
+                            type="time"
+                            name="end_time"
+                            placeholder="Type End Time"
+                            className="input input-bordered w-full max-w-xs"
+                          />
+                        </label>
+                        <div>
+                          <CiSquarePlus size={35} color="#3E50F7" />
+                        </div>
+                      </div>
+                    </div>
+                    <input
                 name="notes"
                 defaultValue={editingEmployee.notes}
                 className="input input-bordered w-full mb-3"
+                placeholder="note update"
               />
+                  </div>
+                </div>
 
-              <div className="modal-action">
-                <button type="submit" className="btn bg-blue-600 text-white">
-                  Update
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
+                <div className="modal-action">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() =>
+                      document.getElementById("my_modal_1").close()
+                    }
+                  >
+                    Close
+                  </button>
+                  <input type="submit" value="Update Employee" className="btn bg-[#3E50F7] text-white" />
+                </div>
+              </form>
+            </div>
+          </dialog>
       )}
     </div>
   );
