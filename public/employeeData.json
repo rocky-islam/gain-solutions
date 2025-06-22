@@ -25,7 +25,7 @@
     "duration": "3.5h",
     "startTimeEndTime": "08:30 - 12:00",
     "dueHours": "0.5h",
-    "department": "QA",
+    "department": "Sales",
     "project": "E-commerce Website",
     "notes": "Tested checkout flow"
   },
@@ -35,7 +35,7 @@
     "duration": "5h",
     "startTimeEndTime": "11:00 - 16:00",
     "dueHours": "1h",
-    "department": "Support",
+    "department": "Product",
     "project": "Helpdesk Automation",
     "notes": "Handled client tickets"
   },
@@ -45,7 +45,7 @@
     "duration": "7h",
     "startTimeEndTime": "09:00 - 17:00",
     "dueHours": "0h",
-    "department": "HR",
+    "department": "Product",
     "project": "Recruitment Portal",
     "notes": "Conducted interviews"
   }

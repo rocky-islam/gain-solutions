@@ -166,7 +166,7 @@ const EmployeeLog = () => {
 
                     <div>
                       <div className="flex gap-4 mt-7">
-                        <div className="w-2/4">
+                        <div className="w-2/4 relative">
                           <div className="flex gap-4 items-center">
                             <label className="form-control flex flex-col w-52">
                               <div className="label">
@@ -182,19 +182,19 @@ const EmployeeLog = () => {
                                 <option value="" disabled>
                                   Select one
                                 </option>
-                                <option value="design">Design</option>
-                                <option value="development">Development</option>
+                                <option value="Design">Design</option>
+                                <option value="Development">Development</option>
                                 <option value="Product">Product</option>
-                                <option value="sales">Sales</option>
+                                <option value="Sales">Sales</option>
                               </select>
                             </label>
-                            <div>
+                            <div className="absolute top-5 right-1/4">
                               <CiSquarePlus size={35} color="#3E50F7" />
                             </div>
                           </div>
                         </div>
 
-                        <div className="w-2/4">
+                        <div className="w-2/4 relative">
                           <div className="flex gap-4 items-center">
                             <label className="form-control flex flex-col w-52">
                               <div className="label">
@@ -214,7 +214,7 @@ const EmployeeLog = () => {
                                 <option value="HRM Project">HRM Project</option>
                               </select>
                             </label>
-                            <div>
+                            <div className="absolute top-5 right-1/4">
                               <CiSquarePlus size={35} color="#3E50F7" />
                             </div>
                           </div>
@@ -223,7 +223,7 @@ const EmployeeLog = () => {
                     </div>
 
                     <div className="flex gap-20 mt-7">
-                      <div className="flex gap-4 items-center">
+                      <div className="flex gap-4 items-center relative">
                         <label className="form-control flex flex-col w-44">
                           <div className="label">
                             <span className="label-text font-medium text-sm">
@@ -237,12 +237,12 @@ const EmployeeLog = () => {
                             className="input input-bordered w-full max-w-xs"
                           />
                         </label>
-                        <div>
+                        <div className="absolute top-5 -right-12">
                           <CiSquarePlus size={35} color="#3E50F7" />
                         </div>
                       </div>
 
-                      <div className="flex gap-4 items-center">
+                      <div className="flex gap-4 items-center relative">
                         <label className="form-control flex flex-col w-44">
                           <div className="label">
                             <span className="label-text font-medium text-sm">
@@ -256,7 +256,7 @@ const EmployeeLog = () => {
                             className="input input-bordered w-full max-w-xs"
                           />
                         </label>
-                        <div>
+                        <div className="absolute top-5 -right-12">
                           <CiSquarePlus size={35} color="#3E50F7" />
                         </div>
                       </div>
